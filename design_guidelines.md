@@ -1,175 +1,251 @@
-# Design Guidelines: FitRecipe - Fitness Recipe Discovery App
+# Design Guidelines: DealHub - Multi-Brand Offers Aggregator
 
 ## Design Approach
 
-**Reference-Based Approach** drawing inspiration from Tasty (visual recipe presentation), MyFitnessPal (nutrition-focused UI), and Pinterest (discovery grid patterns). This creates an experience-focused app where food imagery and visual hierarchy drive engagement while maintaining fitness-oriented clarity.
+**Reference-Based Approach** drawing inspiration from Slickdeals (deal discovery patterns), Amazon (product card layouts), and Flipkart (vibrant Indian e-commerce aesthetics). This creates an experience-focused platform where visual hierarchy, urgency indicators, and engaging product imagery drive exploration and click-throughs.
 
 ## Typography System
 
 **Font Families:**
-- Primary: 'Inter' (Google Fonts) - Clean, modern sans-serif for UI elements
-- Display: 'Poppins' (Google Fonts) - Bold, energetic headlines
+- Primary: 'Inter' (Google Fonts) - Clean, versatile sans-serif for all UI elements
+- Display: 'Outfit' (Google Fonts) - Bold, modern headlines for deals and CTAs
 
 **Hierarchy:**
-- Hero Headlines: Poppins Bold, 3xl to 5xl (responsive)
-- Section Headers: Poppins SemiBold, 2xl to 3xl
-- Card Titles: Inter SemiBold, lg to xl
-- Body Text: Inter Regular, base (16px)
-- Nutritional Data: Inter Medium, sm to base (emphasize numbers with SemiBold)
-- Labels/Meta: Inter Regular, xs to sm
+- Hero Headlines: Outfit Bold, 4xl to 6xl (responsive)
+- Deal Section Headers: Outfit SemiBold, 2xl to 4xl
+- Product Titles: Inter SemiBold, base to lg (clamp to 2 lines)
+- Price Display: Outfit Bold, xl to 2xl (discount prices)
+- Original Price: Inter Regular, sm to base (strikethrough)
+- Discount Badges: Outfit Bold, xs to sm
+- Body Text: Inter Regular, sm to base
+- Meta Info: Inter Regular, xs (shipping, ratings, brand)
 
 ## Layout System
 
-**Spacing Primitives:** Tailwind units of 2, 4, 6, and 8 (e.g., p-4, m-6, gap-8)
-- Tight spacing: 2 (buttons, inline elements)
-- Standard spacing: 4 (cards, form fields)
-- Section spacing: 6-8 (between major sections)
+**Spacing Primitives:** Tailwind units of 2, 4, 6, and 8 (e.g., gap-4, p-6, my-8)
+- Tight spacing: 2 (badges, inline elements)
+- Standard spacing: 4 (cards, filters)
+- Section spacing: 6-8 (between deal sections)
 - Page padding: 6-8 (containers)
 
 **Grid System:**
-- Mobile: Single column, full-width cards
-- Tablet (md): 2-column grid for recipe cards
-- Desktop (lg): 3-column masonry-style grid for recipe discovery
+- Mobile: 1-2 column grid for deals
+- Tablet (md): 3-column grid
+- Desktop (lg): 4-5 column grid for maximum density
 
 **Container Strategy:**
-- Full-width: Hero section, recipe grid backgrounds
-- Constrained: max-w-7xl for content sections
-- Narrow forms: max-w-2xl for ingredient input, filters
+- Full-width: Hero, category banners, deal grids
+- Constrained: max-w-7xl for main content
+- Filter sidebar: max-w-xs on desktop (collapsible on mobile)
 
-## Core Page Structures
+## Core Page Structure
 
 ### Home/Discovery Page
-**Hero Section (60vh on desktop, auto on mobile):**
-- Large hero image showing vibrant, healthy meal
-- Overlay gradient for text readability
-- Centered headline: "Discover Fitness Recipes From What You Have"
-- Search bar for ingredient input (prominent, full-width on mobile, 60% width on desktop)
-- CTA button with blurred background overlay
 
-**Ingredient Inventory Section:**
-- Horizontal scrollable chip list of current ingredients
-- Add/remove functionality with icon buttons
-- Quick-add suggestions below ("Popular ingredients you might have")
+**Hero Section (70vh on desktop, 50vh on mobile):**
+- Dynamic hero image showing shopping excitement (person with shopping bags, colorful product collage, or vibrant discount graphics)
+- Gradient overlay for text contrast
+- Centered headline: "Discover Today's Hottest Deals Across Top Brands"
+- Subheadline highlighting aggregation: "Amazon • Flipkart • Myntra • Ajio - All in One Place"
+- Primary CTA with blurred background: "Explore Deals"
+- Brand logo strip below CTA (horizontal scroll on mobile)
 
-**Recipe Discovery Grid:**
-- Masonry/Pinterest-style layout (3 columns on lg, 2 on md, 1 on mobile)
-- Recipe cards with 4:3 aspect ratio food images
-- Overlay labels for match percentage ("85% Match • 3 missing ingredients")
-- Hover state reveals quick-view nutrition stats
+**Quick Filter Bar (Sticky below header):**
+- Horizontal chip filters: Categories (Electronics, Fashion, Home, Beauty), Discount Range (>50%, >70%), Price Range
+- Sort dropdown: Newest, Highest Discount, Price Low-High
+- View toggle: Grid/List view switcher
+- Active filters display with clear-all option
 
-### Recipe Detail Page
+**Featured Deals Section:**
+- Large 2-column layout (1 on mobile) showcasing "Deal of the Day" cards
+- Each featured card takes 50% width with large product image (16:9 aspect)
+- Countdown timer for limited-time offers
+- Prominent discount badge (top-right corner)
+- Brand logo badge (top-left corner)
+- Quick-view button on hover
+
+**Category Grid Section:**
+- 4-column grid on desktop (2 on tablet, 1 on mobile)
+- Category cards with representative product images
+- Category name overlay with deal count ("Electronics - 234 deals")
+- Hover state reveals top discount available
+
+**All Deals Grid:**
+- 5-column masonry grid on desktop, 3 on tablet, 2 on mobile
+- Infinite scroll with lazy loading
+- Section headers every 20 items: "Trending This Hour", "Fashion Steals", "Tech Deals"
+- Load more button as fallback
+
+**Newsletter/Updates Section:**
+- Full-width banner with gradient background
+- Split layout: Left side with headline "Never Miss a Deal", Right side with email input and subscribe button
+- Social proof: "Join 50,000+ smart shoppers"
+- Trust badges: Daily updates, Verified deals, No spam
+
+### Deal Detail Page
+
 **Layout:**
-- Hero image (full-width, 50vh)
-- Recipe title overlaid on image (bottom-left, with blurred background)
-- Two-column layout on desktop (lg): 
-  - Left (60%): Ingredients list, instructions
-  - Right (40%): Nutrition panel (sticky), timing info
-- Single column on mobile with nutrition panel at top
+- Hero product image gallery (60% width on desktop, full-width on mobile)
+- Image carousel with thumbnail navigation
+- Zoom on hover functionality
+- Right sidebar (40% width) with deal information
 
-**Nutrition Panel:**
-- Card-style container with grid layout (2x2 for macros)
-- Large numbers (3xl) with small labels
-- Visual macro breakdown bar (horizontal stacked bar)
-- Serving size adjuster
+**Deal Information Panel (Sticky on scroll):**
+- Product title (2xl, bold)
+- Brand badge and logo
+- Price display: Large discounted price, small strikethrough original price
+- Discount percentage badge (prominent, large size)
+- Savings amount highlighted
+- Deal validity timer/countdown
+- "Get This Deal" CTA (full-width, prominent)
+- Secondary CTA: "View on [Brand Name]"
+- Store selector if available on multiple platforms
+- Share buttons (WhatsApp, Twitter, Copy Link)
 
-**Instructions:**
-- Numbered step cards with optional step images
-- Checkboxes for progress tracking
-- Timer integration for time-sensitive steps
-
-### Ingredient Management Page
-**Search & Add Section:**
-- Prominent search bar with autocomplete dropdown
-- Category filters (Proteins, Vegetables, Grains, etc.)
-- Quick-add buttons for common items
-
-**My Ingredients Grid:**
-- 4-column grid on desktop, 2 on mobile
-- Ingredient cards with small icons
-- Remove button (X) in top-right corner
-- Quantity badges (optional amounts)
+**Additional Details Section:**
+- Tabbed interface: Description, Specifications, Reviews
+- Deal history chart (price trends)
+- Similar deals carousel
+- User comments/ratings section
 
 ## Component Library
 
-### Recipe Cards
-- Image fills top 65% of card
-- Title, cooking time, difficulty on overlay (bottom section, blurred background)
-- Nutrition summary icons (calories, protein) below image
-- Heart icon for favorites (top-right)
-- Match percentage badge (top-left, if applicable)
+### Deal Cards
 
-### Nutrition Display
-- Circular or rectangular cards for macro display
-- Large numerical value (calories, protein, carbs, fats)
-- Small unit labels
-- Horizontal progress bars for macro distribution
-- Use semantic spacing (gap-4 between cards)
+**Standard Deal Card:**
+- 3:4 aspect ratio product image fills top portion
+- Brand logo badge (small, top-left corner with semi-transparent background)
+- Discount percentage badge (large, top-right, bold)
+- Product title below image (clamp 2 lines, semibold)
+- Price row: Discounted price (large, bold), Original price (small, strikethrough)
+- Savings amount in smaller text
+- Rating stars with count (5 stars layout, small)
+- Quick action icons: Heart (save), Share (external)
+- "View Deal" button (full-width at bottom)
+- Expiry indicator: "Ends in 2 hours" or "Limited stock"
 
-### Input Components
-- Ingredient search: Full-width with rounded corners, shadow, search icon
-- Filters: Chip-style toggle buttons in horizontal scroll
-- Form fields: Standard height (h-12), consistent padding (px-4)
-- Buttons: Medium size (px-6 py-3), rounded-lg
+**Featured Deal Card (Larger format):**
+- 16:9 hero product image
+- Same badge system but larger scale
+- Additional info: Brief description snippet (1 line)
+- Countdown timer (hours:minutes:seconds)
+- Two CTAs: Primary "Grab Now", Secondary "Details"
 
-### Navigation
+### Filter Components
+
+**Sidebar Filters (Desktop):**
+- Collapsible sections: Brands, Categories, Price Range, Discount
+- Checkbox groups with count indicators
+- Price range slider with min/max inputs
+- Apply/Clear filter buttons at bottom
+- Sticky positioning
+
+**Mobile Filter Drawer:**
+- Bottom sheet/modal on mobile
+- Same filter groups in accordion style
+- Fixed footer with Apply and Clear buttons
+- Filter count badge on trigger button
+
+### Brand Indicators
+
+**Brand Badges:**
+- Small logo images (32x32px) or text badges
+- Consistent positioning (top-left of cards)
+- Semi-transparent background for contrast
+- Brand-specific styling treatment ready
+
+### Urgency Indicators
+
+**Countdown Timers:**
+- Digital clock format (HH:MM:SS)
+- "Ending Soon" text for <1 hour
+- Progress bar for visual time remaining
+
+**Stock Alerts:**
+- "Only 3 left" badges
+- "Almost Gone" indicators
+- "Back in Stock" labels
+
+## Navigation
+
 **Top Navigation:**
-- Horizontal bar with logo left, navigation center, profile right
-- Sticky on scroll
-- Search icon that expands to full search bar on click (mobile)
+- Logo left, centered search bar (expandable on mobile)
+- Category mega-menu (Desktop: dropdown, Mobile: hamburger)
+- User actions right: Saved deals (heart icon with count), Login/Profile
+- Sticky with shadow on scroll
 
-**Bottom Tab Navigation (Mobile):**
-- 4-5 tabs: Discover, My Ingredients, Favorites, Reminders, Profile
-- Active state with icon fill and label
-
-### Notification/Reminder Cards
-- Compact card design with icon left, text center, action right
-- Time indicator and category label
-- Swipe-to-dismiss on mobile
-- Bell icon with notification badge
+**Breadcrumbs:**
+- Show hierarchy: Home > Category > Subcategory > Deal
+- Clickable navigation path
 
 ## Icons
-**Icon Library:** Heroicons (outline for inactive states, solid for active states)
-- Navigation: home, collection, heart, bell, user
-- Actions: plus, trash, search, filter, clock
-- Recipe: fire (calories), scale (protein), leaf (healthy)
+
+**Icon Library:** Heroicons (via CDN)
+- Navigation: home-outline, tag-outline, heart-outline, user-circle-outline
+- Actions: shopping-cart, share, bookmark, filter, search, external-link
+- Indicators: clock, trending-up, fire (hot deals), star (ratings)
+- Sorting: arrows-up-down, adjustments-horizontal
 
 ## Images Strategy
 
 **Hero Images:**
-- Large hero on home page: Vibrant fitness meal spread (grilled chicken, quinoa, vegetables)
-- Recipe detail heroes: Individual dish hero shots, professionally photographed
-- All hero images require gradient overlays for text readability
+- Large hero banner: Vibrant shopping-themed imagery - excited shoppers with bags, colorful product arrangements, or celebratory discount graphics
+- High energy, lifestyle photography that communicates savings and variety
+- Gradient overlay (bottom-to-top or radial) for text readability
 
-**Recipe Card Images:**
-- 4:3 aspect ratio
-- High-quality food photography
-- Consistent styling (bright, appetizing, fitness-focused)
+**Product Images:**
+- High-quality product photography (white/transparent backgrounds preferred)
+- Consistent aspect ratios per card type
+- All images lazy-loaded for performance
+- Fallback placeholder for missing images
 
-**Supplementary Images:**
-- Ingredient icons (small, consistent style)
-- Step-by-step cooking photos (optional, in instruction cards)
-- Empty state illustrations (friendly, encouraging)
+**Brand Logos:**
+- Official brand logos for Amazon, Flipkart, Myntra, Ajio
+- Consistent sizing (32x32px for badges, larger for hero brand strip)
+- Optimized SVG or PNG formats
 
-## Spacing & Rhythm
-- Hero sections: py-16 to py-24
-- Content sections: py-12 to py-16
-- Card internal padding: p-4 to p-6
+**Category Banners:**
+- Lifestyle images representing each category
+- Fashion: Clothing flat-lays or styled outfits
+- Electronics: Product shots on modern backgrounds
+- Home: Curated home décor scenes
+
+## Spacing & Vertical Rhythm
+
+- Hero section: py-20 to py-32
+- Section spacing: py-12 to py-20
+- Card padding: p-4 to p-6
 - Grid gaps: gap-6 on desktop, gap-4 on mobile
-- Form field spacing: space-y-4
+- Filter spacing: space-y-6 for groups
 
 ## Key Interactions
-- Recipe card hover: Subtle lift (shadow increase), reveal nutrition overlay
-- Ingredient chip: Click to remove with fade-out animation
-- Checkbox completion: Scale animation on check
-- Search: Smooth expand/collapse, instant results
-- Favorite: Heart fill animation
+
+**Scroll-Based Reveals:**
+- Fade-in animation as cards enter viewport
+- Staggered animation (50ms delay between cards)
+- Scale-up effect (from 95% to 100%) on reveal
+
+**Card Interactions:**
+- Hover lift with shadow increase
+- Image zoom on hover (desktop)
+- Quick-view overlay on hover
+- Heart animation on save
+- Share button triggers native share or modal
+
+**Filter Interactions:**
+- Instant grid updates on filter selection
+- Smooth collapse/expand animations
+- Filter count updates in real-time
 
 ## Accessibility
-- Maintain 4.5:1 contrast ratio for all text
-- Focus states: 2px outline with offset
-- Touch targets: minimum 44x44px on mobile
-- Semantic HTML for all form inputs
-- ARIA labels for icon-only buttons
-- Keyboard navigation support throughout
 
-This design creates a visually rich, engagement-focused experience that balances the inspirational nature of recipe discovery with the data-driven needs of fitness enthusiasts.
+- Contrast ratio 4.5:1 for all text
+- Focus states: 2px outline with 2px offset
+- Touch targets: minimum 44x44px
+- Semantic HTML: article for cards, nav for navigation
+- ARIA labels for icon-only buttons
+- Skip-to-content link
+- Keyboard navigation: Tab through cards, Enter to activate
+- Screen reader announcements for deal expiry, stock levels
+
+This design creates a vibrant, high-energy shopping experience that maximizes deal visibility while maintaining clarity and encouraging exploration through strategic visual hierarchy and engagement patterns.

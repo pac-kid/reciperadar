@@ -1,136 +1,264 @@
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Search, Heart, Bell } from 'lucide-react'
-import { RecipeCard } from '@/components/RecipeCard'
-import { IngredientChip } from '@/components/IngredientChip'
-import { IngredientSearch } from '@/components/IngredientSearch'
+import { Search, Heart, Menu, ChevronDown } from 'lucide-react'
+import { DealCard } from '@/components/DealCard'
+import { SectionHeader } from '@/components/SectionHeader'
 import { ThemeToggle } from '@/components/ThemeToggle'
-import { NotificationBanner } from '@/components/NotificationBanner'
-import { Link } from 'wouter'
-import heroImage from '@assets/generated_images/Hero_fitness_meal_spread_5c3c0e5f.png'
-import salmonImage from '@assets/generated_images/Grilled_salmon_recipe_836bff56.png'
-import buddhaImage from '@assets/generated_images/Buddha_bowl_recipe_cb2a4112.png'
-import stirfryImage from '@assets/generated_images/Chicken_stir-fry_recipe_06d9119a.png'
-import parfaitImage from '@assets/generated_images/Greek_yogurt_parfait_50910901.png'
-import burritoImage from '@assets/generated_images/Burrito_bowl_recipe_fb7f08aa.png'
-import eggMuffinsImage from '@assets/generated_images/Egg_muffins_recipe_0009260c.png'
+import heroImage from '@assets/generated_images/Hero_shopping_excitement_a47de800.png'
+import smartphone from '@assets/generated_images/Smartphone_product_d15f9a32.png'
+import headphones from '@assets/generated_images/Headphones_product_c952b6da.png'
+import jacket from '@assets/generated_images/Denim_jacket_fashion_a4dca521.png'
+import sneakers from '@assets/generated_images/Sneakers_product_3e4a6ae6.png'
+import smartwatch from '@assets/generated_images/Smartwatch_product_08d7b12a.png'
+import handbag from '@assets/generated_images/Handbag_fashion_f26a9639.png'
+import laptop from '@assets/generated_images/Laptop_product_91ae891f.png'
+import sunglasses from '@assets/generated_images/Sunglasses_fashion_274ed69d.png'
+import tshirt from '@assets/generated_images/T-shirt_fashion_173bfeff.png'
+import speaker from '@assets/generated_images/Bluetooth_speaker_a10e3ab8.png'
+import runningShoes from '@assets/generated_images/Running_shoes_3251b72b.png'
+import shirt from '@assets/generated_images/Dress_shirt_96e201da.png'
+import tablet from '@assets/generated_images/Tablet_device_8f286f91.png'
+import dress from '@assets/generated_images/Floral_dress_2a4341d1.png'
+import controller from '@assets/generated_images/Gaming_controller_984b6824.png'
 
 export default function Home() {
-  const [ingredients, setIngredients] = useState([
-    'Chicken Breast',
-    'Quinoa',
-    'Spinach',
-    'Bell Peppers',
-    'Olive Oil',
-  ])
-  
-  const [notifications, setNotifications] = useState([
-    {
-      id: '1',
-      title: 'Meal Prep Reminder',
-      message: 'Time to prepare your healthy lunch for tomorrow!',
-      time: '2 hours ago',
-    },
-  ])
-
   const [searchQuery, setSearchQuery] = useState('')
 
-  const recipes = [
+  const amazonDeals = [
     {
-      id: '1',
-      title: 'Grilled Salmon with Quinoa',
-      image: salmonImage,
-      cookingTime: 25,
-      calories: 450,
-      protein: 35,
-      matchPercentage: 85,
-      missingIngredients: 2,
+      id: 'a1',
+      title: 'Premium Wireless Noise-Canceling Headphones',
+      image: headphones,
+      brand: 'amazon' as const,
+      originalPrice: 12999,
+      discountedPrice: 7999,
+      discountPercent: 38,
+      rating: 4.5,
+      ratingCount: 2340,
+      expiresIn: '3 hours',
     },
     {
-      id: '2',
-      title: 'Colorful Buddha Bowl',
-      image: buddhaImage,
-      cookingTime: 20,
-      calories: 380,
-      protein: 18,
-      matchPercentage: 92,
-      missingIngredients: 1,
+      id: 'a2',
+      title: 'Latest 5G Smartphone - 128GB Storage',
+      image: smartphone,
+      brand: 'amazon' as const,
+      originalPrice: 29999,
+      discountedPrice: 19999,
+      discountPercent: 33,
+      rating: 4.3,
+      ratingCount: 1856,
     },
     {
-      id: '3',
-      title: 'Chicken Stir-Fry',
-      image: stirfryImage,
-      cookingTime: 15,
-      calories: 420,
-      protein: 32,
-      matchPercentage: 95,
-      missingIngredients: 0,
+      id: 'a3',
+      title: 'Smart Fitness Watch with Heart Rate Monitor',
+      image: smartwatch,
+      brand: 'amazon' as const,
+      originalPrice: 8999,
+      discountedPrice: 4999,
+      discountPercent: 44,
+      rating: 4.2,
+      ratingCount: 987,
+      expiresIn: '12 hours',
     },
     {
-      id: '4',
-      title: 'Greek Yogurt Parfait',
-      image: parfaitImage,
-      cookingTime: 5,
-      calories: 250,
-      protein: 20,
-      matchPercentage: 78,
-      missingIngredients: 3,
-    },
-    {
-      id: '5',
-      title: 'Chicken Burrito Bowl',
-      image: burritoImage,
-      cookingTime: 30,
-      calories: 520,
-      protein: 38,
-      matchPercentage: 88,
-      missingIngredients: 2,
-    },
-    {
-      id: '6',
-      title: 'Protein Egg Muffins',
-      image: eggMuffinsImage,
-      cookingTime: 25,
-      calories: 180,
-      protein: 15,
-      matchPercentage: 90,
-      missingIngredients: 1,
+      id: 'a4',
+      title: 'Ultra-Slim Laptop 14" Full HD Display',
+      image: laptop,
+      brand: 'amazon' as const,
+      originalPrice: 54999,
+      discountedPrice: 39999,
+      discountPercent: 27,
+      rating: 4.6,
+      ratingCount: 543,
     },
   ]
 
-  const handleAddIngredient = (ingredient: string) => {
-    if (!ingredients.includes(ingredient)) {
-      setIngredients([...ingredients, ingredient])
-    }
-  }
+  const flipkartDeals = [
+    {
+      id: 'f1',
+      title: 'Casual Denim Jacket - Premium Quality',
+      image: jacket,
+      brand: 'flipkart' as const,
+      originalPrice: 2999,
+      discountedPrice: 1499,
+      discountPercent: 50,
+      rating: 4.1,
+      ratingCount: 456,
+      expiresIn: '8 hours',
+    },
+    {
+      id: 'f2',
+      title: 'Bluetooth Portable Speaker - Waterproof',
+      image: speaker,
+      brand: 'flipkart' as const,
+      originalPrice: 3999,
+      discountedPrice: 1999,
+      discountPercent: 50,
+      rating: 4.4,
+      ratingCount: 1234,
+    },
+    {
+      id: 'f3',
+      title: 'Gaming Controller Wireless - LED Lights',
+      image: controller,
+      brand: 'flipkart' as const,
+      originalPrice: 4999,
+      discountedPrice: 2799,
+      discountPercent: 44,
+      rating: 4.3,
+      ratingCount: 789,
+      expiresIn: '5 hours',
+    },
+    {
+      id: 'f4',
+      title: 'Android Tablet 10.1" - 64GB Storage',
+      image: tablet,
+      brand: 'flipkart' as const,
+      originalPrice: 18999,
+      discountedPrice: 12999,
+      discountPercent: 32,
+      rating: 4.0,
+      ratingCount: 234,
+    },
+  ]
 
-  const handleRemoveIngredient = (ingredient: string) => {
-    setIngredients(ingredients.filter((i) => i !== ingredient))
-  }
+  const myntraDeals = [
+    {
+      id: 'm1',
+      title: 'Trendy White Sneakers - Casual Footwear',
+      image: sneakers,
+      brand: 'myntra' as const,
+      originalPrice: 3499,
+      discountedPrice: 1999,
+      discountPercent: 43,
+      rating: 4.5,
+      ratingCount: 2103,
+    },
+    {
+      id: 'm2',
+      title: 'Designer Sunglasses - UV Protection',
+      image: sunglasses,
+      brand: 'myntra' as const,
+      originalPrice: 2999,
+      discountedPrice: 1299,
+      discountPercent: 57,
+      rating: 4.2,
+      ratingCount: 567,
+      expiresIn: '24 hours',
+    },
+    {
+      id: 'm3',
+      title: 'Casual Cotton T-Shirt - Multicolor Pack',
+      image: tshirt,
+      brand: 'myntra' as const,
+      originalPrice: 1999,
+      discountedPrice: 999,
+      discountPercent: 50,
+      rating: 4.3,
+      ratingCount: 3456,
+    },
+    {
+      id: 'm4',
+      title: 'Running Shoes - Athletic Performance',
+      image: runningShoes,
+      brand: 'myntra' as const,
+      originalPrice: 4999,
+      discountedPrice: 2499,
+      discountPercent: 50,
+      rating: 4.4,
+      ratingCount: 1876,
+      expiresIn: '6 hours',
+    },
+  ]
 
-  const handleDismissNotification = (id: string) => {
-    setNotifications(notifications.filter((n) => n.id !== id))
-  }
+  const ajioDeals = [
+    {
+      id: 'aj1',
+      title: 'Elegant Leather Handbag - Premium',
+      image: handbag,
+      brand: 'ajio' as const,
+      originalPrice: 6999,
+      discountedPrice: 3999,
+      discountPercent: 43,
+      rating: 4.6,
+      ratingCount: 234,
+    },
+    {
+      id: 'aj2',
+      title: 'Formal White Dress Shirt - Slim Fit',
+      image: shirt,
+      brand: 'ajio' as const,
+      originalPrice: 1999,
+      discountedPrice: 999,
+      discountPercent: 50,
+      rating: 4.3,
+      ratingCount: 876,
+      expiresIn: '4 hours',
+    },
+    {
+      id: 'aj3',
+      title: 'Floral Summer Dress - Women Fashion',
+      image: dress,
+      brand: 'ajio' as const,
+      originalPrice: 3499,
+      discountedPrice: 1749,
+      discountPercent: 50,
+      rating: 4.5,
+      ratingCount: 432,
+    },
+    {
+      id: 'aj4',
+      title: 'Casual Denim Jeans - Comfort Fit',
+      image: jacket,
+      brand: 'ajio' as const,
+      originalPrice: 2999,
+      discountedPrice: 1499,
+      discountPercent: 50,
+      rating: 4.2,
+      ratingCount: 654,
+      expiresIn: '10 hours',
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-background border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <h1 className="text-2xl font-display font-bold text-primary">FitRecipe</h1>
+          <div className="flex items-center justify-between h-16 gap-4">
+            <div className="flex items-center gap-4">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="md:hidden"
+                data-testid="button-menu"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+              <h1 className="text-xl md:text-2xl font-display font-bold bg-gradient-to-r from-primary to-chart-2 bg-clip-text text-transparent">
+                DealHub
+              </h1>
+            </div>
+            
+            <div className="hidden md:flex flex-1 max-w-xl">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search deals..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                  data-testid="input-search"
+                />
+              </div>
+            </div>
+            
             <div className="flex items-center gap-2">
               <Button
                 size="icon"
                 variant="ghost"
-                data-testid="button-notifications"
-              >
-                <Bell className="h-5 w-5" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                data-testid="button-favorites"
+                data-testid="button-saved-deals"
               >
                 <Heart className="h-5 w-5" />
               </Button>
@@ -140,104 +268,147 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center">
+      <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
-            Discover Fitness Recipes From What You Have
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 leading-tight">
+            Discover Today's Hottest Deals<br />Across Top Brands
           </h2>
-          <p className="text-lg md:text-xl text-white/90 mb-8">
-            Turn your ingredients into healthy, delicious meals
+          <p className="text-lg md:text-xl text-white/90 mb-6">
+            Amazon • Flipkart • Myntra • Ajio - All in One Place
           </p>
           
-          <div className="max-w-2xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search recipes..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-12 text-base bg-background/95 backdrop-blur-sm"
-                data-testid="input-hero-search"
-              />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8"
+              data-testid="button-explore-deals"
+            >
+              Explore Deals
+              <ChevronDown className="h-5 w-5 ml-2" />
+            </Button>
+            <div className="flex items-center gap-3 text-white/80 text-sm">
+              <span className="hidden sm:inline">|</span>
+              <span>50,000+ deals updated daily</span>
             </div>
           </div>
         </div>
       </section>
 
-      {notifications.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="space-y-3">
-            {notifications.map((notification) => (
-              <NotificationBanner
-                key={notification.id}
-                {...notification}
-                onDismiss={handleDismissNotification}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h3 className="text-2xl font-display font-semibold mb-4">My Ingredients</h3>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <SectionHeader
+          title="Amazon Offers"
+          subtitle="Exclusive deals from the world's largest online retailer"
+          dealCount={156}
+          brandColor="#FF9900"
+          onViewAll={() => console.log('View all Amazon deals')}
+        />
         
-        <div className="mb-6">
-          <IngredientSearch onAdd={handleAddIngredient} />
-        </div>
-        
-        <div className="flex flex-wrap gap-2 mb-4">
-          {ingredients.map((ingredient) => (
-            <IngredientChip
-              key={ingredient}
-              name={ingredient}
-              onRemove={handleRemoveIngredient}
-            />
-          ))}
-        </div>
-        
-        <div className="mt-6">
-          <h4 className="text-sm font-medium text-muted-foreground mb-3">Popular ingredients you might have:</h4>
-          <div className="flex flex-wrap gap-2">
-            {['Brown Rice', 'Eggs', 'Greek Yogurt', 'Sweet Potato', 'Broccoli'].map((suggestion) => (
-              <Button
-                key={suggestion}
-                variant="outline"
-                size="sm"
-                onClick={() => handleAddIngredient(suggestion)}
-                data-testid={`button-suggestion-${suggestion.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                <Search className="h-3 w-3 mr-1.5" />
-                {suggestion}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-2xl font-display font-semibold">Recipes For You</h3>
-          <p className="text-sm text-muted-foreground">{recipes.length} recipes found</p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recipes.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              {...recipe}
-              onClick={(id) => console.log('Recipe clicked:', id)}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {amazonDeals.map((deal) => (
+            <DealCard
+              key={deal.id}
+              {...deal}
+              onClick={(id) => console.log('Deal clicked:', id)}
               onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
             />
           ))}
         </div>
       </section>
+
+      <section className="bg-accent/30 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            title="Flipkart Offers"
+            subtitle="Amazing deals on electronics, fashion, and more"
+            dealCount={203}
+            brandColor="#2874f0"
+            onViewAll={() => console.log('View all Flipkart deals')}
+          />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {flipkartDeals.map((deal) => (
+              <DealCard
+                key={deal.id}
+                {...deal}
+                onClick={(id) => console.log('Deal clicked:', id)}
+                onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <SectionHeader
+          title="Myntra Offers"
+          subtitle="Trending fashion deals for your style"
+          dealCount={189}
+          brandColor="#ff3e6c"
+          onViewAll={() => console.log('View all Myntra deals')}
+        />
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {myntraDeals.map((deal) => (
+            <DealCard
+              key={deal.id}
+              {...deal}
+              onClick={(id) => console.log('Deal clicked:', id)}
+              onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-accent/30 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            title="Ajio Offers"
+            subtitle="Premium fashion at unbeatable prices"
+            dealCount={142}
+            brandColor="#a1825e"
+            onViewAll={() => console.log('View all Ajio deals')}
+          />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {ajioDeals.map((deal) => (
+              <DealCard
+                key={deal.id}
+                {...deal}
+                onClick={(id) => console.log('Deal clicked:', id)}
+                onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-card border-t mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <h3 className="text-2xl font-display font-bold mb-4">Never Miss a Deal</h3>
+            <p className="text-muted-foreground mb-6">
+              Join 50,000+ smart shoppers and get the best deals delivered daily
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1"
+                data-testid="input-newsletter"
+              />
+              <Button data-testid="button-subscribe">
+                Subscribe
+              </Button>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
