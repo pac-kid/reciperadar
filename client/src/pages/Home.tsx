@@ -2,224 +2,17 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Search, Heart, Menu, ChevronDown } from 'lucide-react'
-import { DealCard } from '@/components/DealCard'
+import { BrandBanner } from '@/components/BrandBanner'
 import { SectionHeader } from '@/components/SectionHeader'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import heroImage from '@assets/generated_images/Hero_shopping_excitement_a47de800.png'
-import smartphone from '@assets/generated_images/Smartphone_product_d15f9a32.png'
-import headphones from '@assets/generated_images/Headphones_product_c952b6da.png'
-import jacket from '@assets/generated_images/Denim_jacket_fashion_a4dca521.png'
-import sneakers from '@assets/generated_images/Sneakers_product_3e4a6ae6.png'
-import smartwatch from '@assets/generated_images/Smartwatch_product_08d7b12a.png'
-import handbag from '@assets/generated_images/Handbag_fashion_f26a9639.png'
-import laptop from '@assets/generated_images/Laptop_product_91ae891f.png'
-import sunglasses from '@assets/generated_images/Sunglasses_fashion_274ed69d.png'
-import tshirt from '@assets/generated_images/T-shirt_fashion_173bfeff.png'
-import speaker from '@assets/generated_images/Bluetooth_speaker_a10e3ab8.png'
-import runningShoes from '@assets/generated_images/Running_shoes_3251b72b.png'
-import shirt from '@assets/generated_images/Dress_shirt_96e201da.png'
-import tablet from '@assets/generated_images/Tablet_device_8f286f91.png'
-import dress from '@assets/generated_images/Floral_dress_2a4341d1.png'
-import controller from '@assets/generated_images/Gaming_controller_984b6824.png'
+import amazonBanner from '@assets/generated_images/Amazon_products_banner_fbe2de2d.png'
+import flipkartBanner from '@assets/generated_images/Flipkart_products_banner_0d4084d1.png'
+import myntraBanner from '@assets/generated_images/Myntra_products_banner_86b71eb6.png'
+import ajioBanner from '@assets/generated_images/Ajio_products_banner_82c1fe51.png'
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
-
-  const amazonDeals = [
-    {
-      id: 'a1',
-      title: 'Premium Wireless Noise-Canceling Headphones',
-      image: headphones,
-      brand: 'amazon' as const,
-      originalPrice: 12999,
-      discountedPrice: 7999,
-      discountPercent: 38,
-      rating: 4.5,
-      ratingCount: 2340,
-      expiresIn: '3 hours',
-    },
-    {
-      id: 'a2',
-      title: 'Latest 5G Smartphone - 128GB Storage',
-      image: smartphone,
-      brand: 'amazon' as const,
-      originalPrice: 29999,
-      discountedPrice: 19999,
-      discountPercent: 33,
-      rating: 4.3,
-      ratingCount: 1856,
-    },
-    {
-      id: 'a3',
-      title: 'Smart Fitness Watch with Heart Rate Monitor',
-      image: smartwatch,
-      brand: 'amazon' as const,
-      originalPrice: 8999,
-      discountedPrice: 4999,
-      discountPercent: 44,
-      rating: 4.2,
-      ratingCount: 987,
-      expiresIn: '12 hours',
-    },
-    {
-      id: 'a4',
-      title: 'Ultra-Slim Laptop 14" Full HD Display',
-      image: laptop,
-      brand: 'amazon' as const,
-      originalPrice: 54999,
-      discountedPrice: 39999,
-      discountPercent: 27,
-      rating: 4.6,
-      ratingCount: 543,
-    },
-  ]
-
-  const flipkartDeals = [
-    {
-      id: 'f1',
-      title: 'Casual Denim Jacket - Premium Quality',
-      image: jacket,
-      brand: 'flipkart' as const,
-      originalPrice: 2999,
-      discountedPrice: 1499,
-      discountPercent: 50,
-      rating: 4.1,
-      ratingCount: 456,
-      expiresIn: '8 hours',
-    },
-    {
-      id: 'f2',
-      title: 'Bluetooth Portable Speaker - Waterproof',
-      image: speaker,
-      brand: 'flipkart' as const,
-      originalPrice: 3999,
-      discountedPrice: 1999,
-      discountPercent: 50,
-      rating: 4.4,
-      ratingCount: 1234,
-    },
-    {
-      id: 'f3',
-      title: 'Gaming Controller Wireless - LED Lights',
-      image: controller,
-      brand: 'flipkart' as const,
-      originalPrice: 4999,
-      discountedPrice: 2799,
-      discountPercent: 44,
-      rating: 4.3,
-      ratingCount: 789,
-      expiresIn: '5 hours',
-    },
-    {
-      id: 'f4',
-      title: 'Android Tablet 10.1" - 64GB Storage',
-      image: tablet,
-      brand: 'flipkart' as const,
-      originalPrice: 18999,
-      discountedPrice: 12999,
-      discountPercent: 32,
-      rating: 4.0,
-      ratingCount: 234,
-    },
-  ]
-
-  const myntraDeals = [
-    {
-      id: 'm1',
-      title: 'Trendy White Sneakers - Casual Footwear',
-      image: sneakers,
-      brand: 'myntra' as const,
-      originalPrice: 3499,
-      discountedPrice: 1999,
-      discountPercent: 43,
-      rating: 4.5,
-      ratingCount: 2103,
-    },
-    {
-      id: 'm2',
-      title: 'Designer Sunglasses - UV Protection',
-      image: sunglasses,
-      brand: 'myntra' as const,
-      originalPrice: 2999,
-      discountedPrice: 1299,
-      discountPercent: 57,
-      rating: 4.2,
-      ratingCount: 567,
-      expiresIn: '24 hours',
-    },
-    {
-      id: 'm3',
-      title: 'Casual Cotton T-Shirt - Multicolor Pack',
-      image: tshirt,
-      brand: 'myntra' as const,
-      originalPrice: 1999,
-      discountedPrice: 999,
-      discountPercent: 50,
-      rating: 4.3,
-      ratingCount: 3456,
-    },
-    {
-      id: 'm4',
-      title: 'Running Shoes - Athletic Performance',
-      image: runningShoes,
-      brand: 'myntra' as const,
-      originalPrice: 4999,
-      discountedPrice: 2499,
-      discountPercent: 50,
-      rating: 4.4,
-      ratingCount: 1876,
-      expiresIn: '6 hours',
-    },
-  ]
-
-  const ajioDeals = [
-    {
-      id: 'aj1',
-      title: 'Elegant Leather Handbag - Premium',
-      image: handbag,
-      brand: 'ajio' as const,
-      originalPrice: 6999,
-      discountedPrice: 3999,
-      discountPercent: 43,
-      rating: 4.6,
-      ratingCount: 234,
-    },
-    {
-      id: 'aj2',
-      title: 'Formal White Dress Shirt - Slim Fit',
-      image: shirt,
-      brand: 'ajio' as const,
-      originalPrice: 1999,
-      discountedPrice: 999,
-      discountPercent: 50,
-      rating: 4.3,
-      ratingCount: 876,
-      expiresIn: '4 hours',
-    },
-    {
-      id: 'aj3',
-      title: 'Floral Summer Dress - Women Fashion',
-      image: dress,
-      brand: 'ajio' as const,
-      originalPrice: 3499,
-      discountedPrice: 1749,
-      discountPercent: 50,
-      rating: 4.5,
-      ratingCount: 432,
-    },
-    {
-      id: 'aj4',
-      title: 'Casual Denim Jeans - Comfort Fit',
-      image: jacket,
-      brand: 'ajio' as const,
-      originalPrice: 2999,
-      discountedPrice: 1499,
-      discountPercent: 50,
-      rating: 4.2,
-      ratingCount: 654,
-      expiresIn: '10 hours',
-    },
-  ]
 
   return (
     <div className="min-h-screen bg-background">
@@ -309,16 +102,12 @@ export default function Home() {
           onViewAll={() => console.log('View all Amazon deals')}
         />
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {amazonDeals.map((deal) => (
-            <DealCard
-              key={deal.id}
-              {...deal}
-              onClick={(id) => console.log('Deal clicked:', id)}
-              onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
-            />
-          ))}
-        </div>
+        <BrandBanner
+          brandName="Amazon"
+          image={amazonBanner}
+          onClick={() => console.log('Amazon banner clicked')}
+          testId="banner-amazon"
+        />
       </section>
 
       <section className="bg-accent/30 py-16">
@@ -331,16 +120,12 @@ export default function Home() {
             onViewAll={() => console.log('View all Flipkart deals')}
           />
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {flipkartDeals.map((deal) => (
-              <DealCard
-                key={deal.id}
-                {...deal}
-                onClick={(id) => console.log('Deal clicked:', id)}
-                onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
-              />
-            ))}
-          </div>
+          <BrandBanner
+            brandName="Flipkart"
+            image={flipkartBanner}
+            onClick={() => console.log('Flipkart banner clicked')}
+            testId="banner-flipkart"
+          />
         </div>
       </section>
 
@@ -353,16 +138,12 @@ export default function Home() {
           onViewAll={() => console.log('View all Myntra deals')}
         />
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {myntraDeals.map((deal) => (
-            <DealCard
-              key={deal.id}
-              {...deal}
-              onClick={(id) => console.log('Deal clicked:', id)}
-              onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
-            />
-          ))}
-        </div>
+        <BrandBanner
+          brandName="Myntra"
+          image={myntraBanner}
+          onClick={() => console.log('Myntra banner clicked')}
+          testId="banner-myntra"
+        />
       </section>
 
       <section className="bg-accent/30 py-16">
@@ -375,16 +156,12 @@ export default function Home() {
             onViewAll={() => console.log('View all Ajio deals')}
           />
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ajioDeals.map((deal) => (
-              <DealCard
-                key={deal.id}
-                {...deal}
-                onClick={(id) => console.log('Deal clicked:', id)}
-                onFavoriteToggle={(id) => console.log('Favorite toggled:', id)}
-              />
-            ))}
-          </div>
+          <BrandBanner
+            brandName="Ajio"
+            image={ajioBanner}
+            onClick={() => console.log('Ajio banner clicked')}
+            testId="banner-ajio"
+          />
         </div>
       </section>
 
