@@ -6,7 +6,7 @@ import { BrandBanner } from '@/components/BrandBanner'
 import { SectionHeader } from '@/components/SectionHeader'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import heroImage from '@assets/generated_images/Hero_shopping_excitement_a47de800.png'
-import amazonBanner from '@assets/generated_images/Amazon_products_banner_fbe2de2d.png'
+import mamaearthBanner from '@assets/generated_images/Mamaearth_products_banner.png'
 import flipkartBanner from '@assets/generated_images/Flipkart_products_banner_0d4084d1.png'
 import myntraBanner from '@assets/generated_images/Myntra_products_banner_86b71eb6.png'
 import ajioBanner from '@assets/generated_images/Ajio_products_banner_82c1fe51.png'
@@ -15,7 +15,8 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-white">
+      {/* HEADER */}
       <header className="sticky top-0 z-50 bg-background border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-4">
@@ -32,7 +33,7 @@ export default function Home() {
                 DealHub
               </h1>
             </div>
-            
+
             <div className="hidden md:flex flex-1 max-w-xl">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -46,7 +47,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <Button
                 size="icon"
@@ -61,110 +62,128 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      {/* SMALL HERO / TITLE STRIP (reduced height) */}
+      <section className="relative h-36 flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center opacity-60"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
-        
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/40" />
+
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 leading-tight">
-            Discover Today's Hottest Deals<br />Across Top Brands
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-white leading-tight">
+            Discover Today's Hottest Deals Across Top Brands
           </h2>
-          <p className="text-lg md:text-xl text-white/90 mb-6">
-            Amazon • Flipkart • Myntra • Ajio - All in One Place
+          <p className="text-sm md:text-base text-white/80 mt-1">
+            Amazon • Flipkart • Myntra • Ajio — all curated in one place
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8"
-              data-testid="button-explore-deals"
-            >
-              Explore Deals
-              <ChevronDown className="h-5 w-5 ml-2" />
-            </Button>
-            <div className="flex items-center gap-3 text-white/80 text-sm">
-              <span className="hidden sm:inline">|</span>
-              <span>50,000+ deals updated daily</span>
+        </div>
+      </section>
+
+      {/* BRANDS (IGN-like grid — 4 across) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-8">
+          <SectionHeader
+            title="Top Brand Offers"
+            subtitle="Shop the latest deals from your favourite stores"
+            dealCount={730}
+            brandColor="#6d28d9"
+            onViewAll={() => console.log('View all brands')}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Mamaearth */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+            <img
+              src={mamaearthBanner}
+              alt="Mamaearth offers"
+              className="w-full h-64 object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-green-700 bg-opacity-95 p-4">
+              <h3 className="text-lg md:text-xl font-bold">Mamaearth Offers</h3>
+              <p className="text-sm text-white/90 mt-1">Best skincare & personal care deals</p>
+              <div className="mt-3">
+                <Button
+                  size="sm"
+                  className="bg-white text-black"
+                  onClick={() => window.open('https://bitli.in/cUofk3Q', '_blank')}
+                >
+                  View Deals
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Flipkart */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+            <img
+              src={flipkartBanner}
+              alt="Flipkart offers"
+              className="w-full h-64 object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-blue-700 bg-opacity-95 p-4">
+              <h3 className="text-lg md:text-xl font-bold">Flipkart Offers</h3>
+              <p className="text-sm text-white/90 mt-1">Amazing deals on electronics, fashion & more</p>
+              <div className="mt-3">
+                <Button
+                  size="sm"
+                  className="bg-white text-black"
+                  onClick={() => window.open('https://fktr.in/zw2ka9z', '_blank')}
+                >
+                  View Deals
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Myntra */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+            <img
+              src={myntraBanner}
+              alt="Myntra offers"
+              className="w-full h-64 object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-pink-600 bg-opacity-95 p-4">
+              <h3 className="text-lg md:text-xl font-bold">Myntra Offers</h3>
+              <p className="text-sm text-white/90 mt-1">Trending fashion & accessories</p>
+              <div className="mt-3">
+                <Button
+                  size="sm"
+                  className="bg-white text-black"
+                  onClick={() => window.open('https://myntr.it/gi8fwFa', '_blank')}
+                >
+                  View Deals
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Ajio */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+            <img
+              src={ajioBanner}
+              alt="Ajio offers"
+              className="w-full h-64 object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-amber-700 bg-opacity-95 p-4">
+              <h3 className="text-lg md:text-xl font-bold">Ajio Offers</h3>
+              <p className="text-sm text-white/90 mt-1">Premium fashion at great prices</p>
+              <div className="mt-3">
+                <Button
+                  size="sm"
+                  className="bg-white text-black"
+                  onClick={() => window.open('https://ajiio.in/Ukofnfz', '_blank')}
+                >
+                  View Deals
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <SectionHeader
-          title="Amazon Offers"
-          subtitle="Exclusive deals from the world's largest online retailer"
-          dealCount={156}
-          brandColor="#FF9900"
-          onViewAll={() => console.log('View all Amazon deals')}
-        />
-        
-        <BrandBanner
-          brandName="Amazon"
-          image={amazonBanner}
-          onClick={() => console.log('Amazon banner clicked')}
-          testId="banner-amazon"
-        />
-      </section>
-
-      <section className="bg-accent/30 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Flipkart Offers"
-            subtitle="Amazing deals on electronics, fashion, and more"
-            dealCount={203}
-            brandColor="#2874f0"
-            onViewAll={() => console.log('View all Flipkart deals')}
-          />
-          
-          <BrandBanner
-            brandName="Flipkart"
-            image={flipkartBanner}
-            onClick={() => console.log('Flipkart banner clicked')}
-            testId="banner-flipkart"
-          />
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <SectionHeader
-          title="Myntra Offers"
-          subtitle="Trending fashion deals for your style"
-          dealCount={189}
-          brandColor="#ff3e6c"
-          onViewAll={() => console.log('View all Myntra deals')}
-        />
-        
-        <BrandBanner
-          brandName="Myntra"
-          image={myntraBanner}
-          onClick={() => console.log('Myntra banner clicked')}
-          testId="banner-myntra"
-        />
-      </section>
-
-      <section className="bg-accent/30 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Ajio Offers"
-            subtitle="Premium fashion at unbeatable prices"
-            dealCount={142}
-            brandColor="#a1825e"
-            onViewAll={() => console.log('View all Ajio deals')}
-          />
-          
-          <BrandBanner
-            brandName="Ajio"
-            image={ajioBanner}
-            onClick={() => console.log('Ajio banner clicked')}
-            testId="banner-ajio"
-          />
-        </div>
-      </section>
-
+      {/* FOOTER */}
       <footer className="bg-card border-t mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
