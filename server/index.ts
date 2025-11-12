@@ -1,6 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { log } from "./vite"; // Keeping only the logger utility
 
 const app = express();
 
@@ -10,6 +10,7 @@ declare module "http" {
   }
 }
 
+// ✅ Parse JSON and URL-encoded bodies
 app.use(
   express.json({
     verify: (req, _res, buf) => {
@@ -19,6 +20,7 @@ app.use(
 );
 app.use(express.urlencoded({ extended: false }));
 
+// ✅ Logging middleware for API requests
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -37,11 +39,9 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-
       if (logLine.length > 80) {
         logLine = logLine.slice(0, 79) + "…";
       }
-
       log(logLine);
     }
   });
@@ -52,27 +52,21 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
+  // ✅ Centralized error handling
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-
     res.status(status).json({ message });
     throw err;
   });
 
-  // ✅ Only Vite in dev mode
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    // ✅ Production build lives in server/public
-    log("Using static files from server/public");
-    serveStatic(app);
-  }
+  // 🚫 Removed Vite/serveStatic (no need for frontend on Render)
+  // Render will only serve backend APIs now.
 
   const port = parseInt(process.env.PORT || "5000", 10);
 
-  // ✅ Works properly on Windows
-  server.listen(port, "localhost", () => {
-    log(`✅ Serving on http://localhost:${port}`);
+  // ✅ Important for Render — listen on 0.0.0.0 instead of localhost
+  server.listen(port, "0.0.0.0", () => {
+    log(`✅ Backend API running on port ${port}`);
   });
 })();
