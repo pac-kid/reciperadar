@@ -2,17 +2,16 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // ✅ Health check route
-  app.get("/api/health", (req, res) => {
-    res.json({ status: "ok", message: "Backend is running ✅" });
+  // HEALTH CHECK
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
   });
 
-  // ✅ Mock products route for testing
-  app.get("/api/products", (req, res) => {
+  // TEST PRODUCTS ROUTE
+  app.get("/api/products", (_req, res) => {
     res.json([
-      { id: 1, name: "Mamaearth Shampoo", price: 299 },
-      { id: 2, name: "Mamaearth Face Wash", price: 249 },
-      { id: 3, name: "Mamaearth Lotion", price: 199 },
+      { id: 1, name: "Sample Product A", price: 199 },
+      { id: 2, name: "Sample Product B", price: 499 }
     ]);
   });
 
