@@ -1,20 +1,19 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
+import { Router } from "express";
+import { storage } from "./storage";
 
-export async function registerRoutes(app: Express): Promise<Server> {
-  // HEALTH CHECK
-  app.get("/api/health", (_req, res) => {
-    res.json({ status: "ok" });
-  });
+const router = Router();
 
-  // TEST PRODUCTS ROUTE
-  app.get("/api/products", (_req, res) => {
-    res.json([
-      { id: 1, name: "Sample Product A", price: 199 },
-      { id: 2, name: "Sample Product B", price: 499 }
-    ]);
-  });
+// GET all products
+router.get("/products", async (req, res) => {
+  const products = await storage.getAllProducts();
+  res.json(products);
+});
 
-  const httpServer = createServer(app);
-  return httpServer;
-}
+// Create product (optional)
+router.post("/products", async (req, res) => {
+  const { name, price } = req.body;
+  const product = await storage.createProduct({ name, price });
+  res.json(product);
+});
+
+export default router;
