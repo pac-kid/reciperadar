@@ -1,19 +1,17 @@
-import { Router } from "express";
+import type { Express } from "express";
 import { storage } from "./storage";
 
-const router = Router();
+export async function registerRoutes(app: Express) {
+  // Simple sample API route
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "ok" });
+  });
 
-// GET all products
-router.get("/products", async (req, res) => {
-  const products = await storage.getAllProducts();
-  res.json(products);
-});
-
-// Create product (optional)
-router.post("/products", async (req, res) => {
-  const { name, price } = req.body;
-  const product = await storage.createProduct({ name, price });
-  res.json(product);
-});
-
-export default router;
+  // Products route
+  app.get("/api/products", (req, res) => {
+    res.json([
+      { id: "1", name: "Sample Recipe 1", price: 99 },
+      { id: "2", name: "Sample Recipe 2", price: 199 }
+    ]);
+  });
+}
