@@ -1,0 +1,22 @@
+[
+  {
+    "brandName": "Ajio",
+    "image": "/assets/generated_images/Ajio_products_banner_82c1fe51.png",
+    "url": "https://www.ajio.com"
+  },
+  {
+    "brandName": "Flipkart",
+    "image": "/assets/generated_images/Flipkart_products_banner_0d4084d1.png",
+    "url": "https://www.flipkart.com"
+  },
+  {
+    "brandName": "Myntra",
+    "image": "/assets/generated_images/Myntra_products_banner_86b71eb6.png",
+    "url": "https://www.myntra.com"
+  },
+  {
+    "brandName": "Mamaearth",
+    "image": "/assets/generated_images/Mamaearth_products_banner.png",
+    "url": "https://mamaearth.in"
+  }
+]

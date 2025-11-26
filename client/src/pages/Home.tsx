@@ -1,21 +1,21 @@
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Search, Heart, Menu, ChevronDown } from 'lucide-react'
+import { Search, Heart, Menu } from 'lucide-react'
 import { BrandBanner } from '@/components/BrandBanner'
 import { SectionHeader } from '@/components/SectionHeader'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import heroImage from '@assets/generated_images/Hero_shopping_excitement_a47de800.png'
-import mamaearthBanner from '@assets/generated_images/Mamaearth_products_banner.png'
-import flipkartBanner from '@assets/generated_images/Flipkart_products_banner_0d4084d1.png'
-import myntraBanner from '@assets/generated_images/Myntra_products_banner_86b71eb6.png'
-import ajioBanner from '@assets/generated_images/Ajio_products_banner_82c1fe51.png'
+
+// Load local banner data
+import brandBanners from '@/data/brandbanners.json'
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
     <div className="min-h-screen bg-background text-white">
+
       {/* HEADER */}
       <header className="sticky top-0 z-50 bg-background border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,6 +29,7 @@ export default function Home() {
               >
                 <Menu className="h-5 w-5" />
               </Button>
+
               <h1 className="text-xl md:text-2xl font-display font-bold bg-gradient-to-r from-primary to-chart-2 bg-clip-text text-transparent">
                 DealHub
               </h1>
@@ -49,11 +50,7 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-2">
-              <Button
-                size="icon"
-                variant="ghost"
-                data-testid="button-saved-deals"
-              >
+              <Button size="icon" variant="ghost" data-testid="button-saved-deals">
                 <Heart className="h-5 w-5" />
               </Button>
               <ThemeToggle />
@@ -62,7 +59,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* SMALL HERO / TITLE STRIP (reduced height) */}
+      {/* HERO */}
       <section className="relative h-36 flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-60"
@@ -80,7 +77,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BRANDS (IGN-like grid — 4 across) */}
+      {/* BRAND BANNERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8">
           <SectionHeader
@@ -92,94 +89,16 @@ export default function Home() {
           />
         </div>
 
+        {/* Dynamic grid from JSON */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Mamaearth */}
-          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <img
-              src={mamaearthBanner}
-              alt="Mamaearth offers"
-              className="w-full h-64 object-cover"
+          {brandBanners.map((brand, index) => (
+            <BrandBanner
+              key={index}
+              brandName={brand.brandName}
+              image={brand.image}
+              onClick={() => window.open(brand.url, '_blank')}
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-green-700 bg-opacity-95 p-4">
-              <h3 className="text-lg md:text-xl font-bold">Mamaearth Offers</h3>
-              <p className="text-sm text-white/90 mt-1">Best skincare & personal care deals</p>
-              <div className="mt-3">
-                <Button
-                  size="sm"
-                  className="bg-white text-black"
-                  onClick={() => window.open('https://bitli.in/cUofk3Q', '_blank')}
-                >
-                  View Deals
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Flipkart */}
-          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <img
-              src={flipkartBanner}
-              alt="Flipkart offers"
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-blue-700 bg-opacity-95 p-4">
-              <h3 className="text-lg md:text-xl font-bold">Flipkart Offers</h3>
-              <p className="text-sm text-white/90 mt-1">Amazing deals on electronics, fashion & more</p>
-              <div className="mt-3">
-                <Button
-                  size="sm"
-                  className="bg-white text-black"
-                  onClick={() => window.open('https://fktr.in/zw2ka9z', '_blank')}
-                >
-                  View Deals
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Myntra */}
-          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <img
-              src={myntraBanner}
-              alt="Myntra offers"
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-pink-600 bg-opacity-95 p-4">
-              <h3 className="text-lg md:text-xl font-bold">Myntra Offers</h3>
-              <p className="text-sm text-white/90 mt-1">Trending fashion & accessories</p>
-              <div className="mt-3">
-                <Button
-                  size="sm"
-                  className="bg-white text-black"
-                  onClick={() => window.open('https://myntr.it/gi8fwFa', '_blank')}
-                >
-                  View Deals
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Ajio */}
-          <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <img
-              src={ajioBanner}
-              alt="Ajio offers"
-              className="w-full h-64 object-cover"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-amber-700 bg-opacity-95 p-4">
-              <h3 className="text-lg md:text-xl font-bold">Ajio Offers</h3>
-              <p className="text-sm text-white/90 mt-1">Premium fashion at great prices</p>
-              <div className="mt-3">
-                <Button
-                  size="sm"
-                  className="bg-white text-black"
-                  onClick={() => window.open('https://ajiio.in/Ukofnfz', '_blank')}
-                >
-                  View Deals
-                </Button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -191,6 +110,7 @@ export default function Home() {
             <p className="text-muted-foreground mb-6">
               Join 50,000+ smart shoppers and get the best deals delivered daily
             </p>
+
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <Input
                 type="email"
@@ -198,13 +118,12 @@ export default function Home() {
                 className="flex-1"
                 data-testid="input-newsletter"
               />
-              <Button data-testid="button-subscribe">
-                Subscribe
-              </Button>
+              <Button data-testid="button-subscribe">Subscribe</Button>
             </div>
           </div>
         </div>
       </footer>
+
     </div>
   )
 }
